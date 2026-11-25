@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRADUACIÓN | MERCADOTECNIA INVIERNO 2026</title>
+    
+    <!-- Tipografía Playfair Display para títulos teatrales/elegantes e Inter para textos generales -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Paleta Conceptual "Opera Rosso": Tonos Vino, Dorado, Negro Teatral e Ivory */
+            --rosso-vino: #692721;       /* Tono vino principal del conceptual */
+            --rosso-dark-vino: #431613;  /* Vino profundo para degradados */
+            --rosso-gold: #B78953;       /* Dorado elegante para acentos y títulos */
+            --rosso-ivory: #FDFBF7;      /* Ivory cálido para textos */
+            --rosso-dark: #0A0303;       /* Base ultra oscura para el fondo teatral */
+            
+            /* Cristal oscuro y bordes inspirados en la estética de ópera */
+            --glass-bg: rgba(10, 3, 3, 0.75); 
+            --glass-border: rgba(183, 137, 83, 0.25); 
+            --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- ARQUITECTURA BASE --- */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif;
+            color: var(--rosso-ivory);
+            line-height: 1.8; 
+            overflow-x: hidden;
+            background-color: var(--rosso-dark);
+        }
+
+        /* --- FONDO GENERADO EN CODIGO (INSPIRADO EN image_156.png) --- */
+        .theatrical-bg {
+            position: fixed;
+            inset: 0;
+            background: var(--rosso-dark);
+            z-index: -5;
+            overflow: hidden;
+        }
+
+        /* Capas de ráfagas de luz roja, carmesí y vino con movimiento */
+        @keyframes driftGlow {
+            0% { transform: scale(1) translate(0, 0) rotate(0deg); }
+            50% { transform: scale(1.15) translate(3%, 2%) rotate(5deg); }
+            100% { transform: scale(0.95) translate(-2%, -3%) rotate(-3deg); }
+        }
+
+        .ambient-glows {
+            position: absolute;
+            inset: -20%;
+            /* Ráfagas de luz orgánica ultra-difuminadas */
+            background: 
+                /* Ráfaga central-izquierda crimson */
+                radial-gradient(circle at 20% 55%, #6a040b 0%, rgba(67, 10, 10, 0.8) 30%, transparent 60%),
+                /* Mancha superior vino */
+                radial-gradient(circle at 45% 25%, #4a0205 0%, rgba(40, 3, 3, 0.9) 35%, transparent 70%),
+                /* Desborde inferior cálido */
+                radial-gradient(circle at 35% 85%, #560307 0%, rgba(55, 3, 5, 0.7) 40%, transparent 75%),
+                /* Destello secundario derecho muy sutil */
+                radial-gradient(circle at 85% 40%, #300102 0%, transparent 50%),
+                /* Relleno ambiental de penumbra roja */
+                radial-gradient(circle at 50% 50%, rgba(45, 2, 4, 0.4) 0%, transparent 80%);
+            filter: blur(80px);
+            opacity: 0.88;
+            animation: driftGlow 22s ease-in-out infinite alternate;
+        }
+
+        /* Viñeteado de gran densidad para oscuridad envolvente */
+        .vignette-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 50% 45%, rgba(10, 3, 3, 0) 10%, rgba(7, 2, 2, 0.7) 50%, rgba(4, 1, 1, 0.98) 100%);
+            z-index: -4;
+            pointer-events: none;
+        }
+
+        /* Grano analógico/ruido fotográfico de cámara idéntico a image_156.png */
+        .analog-grain {
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.085'/%3E%3C/svg%3E");
+            mix-blend-mode: overlay;
+            opacity: 0.65;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        /* --- TIPOGRAFÍA TEATRAL (PLAYFAIR DISPLAY) --- */
+        h1, h2, h3, h4, .section-title, .accent-title, .date-box, .time-content span, .dish span {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 3px;
+            font-weight: 400;
+            color: var(--rosso-gold);
+            text-transform: uppercase;
+        }
+
+        /* --- ANIMACIÓN DINÁMICA: PÉTALOS EN DORADO E IVORY --- */
+        @keyframes floatPetals {
+            0% { transform: translateY(10vh) rotate(0deg); opacity: 0; }
+            20% { opacity: var(--target-opacity); }
+            80% { opacity: var(--target-opacity); }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .petals-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .petal {
+            position: absolute;
+            background-color: var(--rosso-gold);
+            border-radius: 50% 0 50% 50%;
+            animation: floatPetals linear infinite;
+            opacity: 0;
+        }
+
+        .p1 { width: 10px; height: 16px; bottom: -20px; left: 10%; --target-opacity: 0.35; animation-duration: 18s; animation-delay: 0s; }
+        .p2 { width: 14px; height: 20px; bottom: -20px; left: 30%; --target-opacity: 0.2; animation-duration: 24s; animation-delay: 3s; background-color: var(--rosso-ivory); }
+        .p3 { width: 8px; height: 12px; bottom: -20px; left: 60%; --target-opacity: 0.4; animation-duration: 15s; animation-delay: 6s; }
+        .p4 { width: 12px; height: 18px; bottom: -20px; left: 85%; --target-opacity: 0.25; animation-duration: 20s; animation-delay: 2s; background-color: var(--rosso-ivory); }
+
+        /* --- ESTRUCTURA EDITORIAL --- */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- MOTOR DE ANIMACIÓN ON-SCROLL --- */
+        .reveal-node { 
+            opacity: 0; 
+            transform: translateY(40px);
+            transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal-node.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.3s; }
+        .delay-3 { transition-delay: 0.5s; }
+
+        section {
+            margin-bottom: 150px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 60px;
+            letter-spacing: 5px;
+            text-shadow: 0 2px 15px rgba(183, 137, 83, 0.2);
+        }
+
+        /* --- PORTADA --- */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .title-wrapper {
+            background: var(--glass-bg);
+            padding: 50px;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        header h1 { 
+            font-size: clamp(2.5rem, 10vw, 5rem); 
+            margin-bottom: 10px;
+            line-height: 1.1;
+            color: var(--rosso-gold);
+        }
+
+        header p { 
+            font-size: 1.1rem; 
+            letter-spacing: 8px; 
+            color: var(--rosso-ivory); 
+            font-weight: 300;
+            margin-top: 20px; 
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .decorative-line {
+            width: 0;
+            height: 2px;
+            background: var(--rosso-vino);
+            margin: 40px auto 0;
+            transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition-delay: 0.8s;
+            box-shadow: 0 0 10px rgba(105, 39, 33, 0.8);
+        }
+
+        .visible .decorative-line {
+            width: 100px;
+        }
+
+        /* --- FECHA Y UBICACIÓN --- */
+        .date-box {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            letter-spacing: 8px;
+            margin-bottom: 80px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .date-box span {
+            border-bottom: 2px solid var(--rosso-vino);
+            padding-bottom: 5px;
+        }
+
+        .location-info {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 50px 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .location-info h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--rosso-ivory);
+        }
+
+        .location-info p {
+            font-size: 1.2rem;
+            color: var(--rosso-ivory);
+            margin-bottom: 30px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .btn-rosso {
+            display: inline-block;
+            padding: 18px 50px;
+            border: 1px solid var(--rosso-gold);
+            color: var(--rosso-gold);
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 3px;
+            font-size: 1rem;
+            border-radius: 50px;
+            transition: var(--transition-smooth);
+            background: transparent;
+            text-transform: uppercase;
+        }
+
+        .btn-rosso:hover {
+            background: var(--rosso-gold);
+            color: var(--rosso-dark);
+            box-shadow: 0 0 20px rgba(183, 137, 83, 0.4);
+            transform: translateY(-3px);
+        }
+
+        /* --- ITINERARIO --- */
+        .timeline-wrapper {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 60px 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .timeline-grid {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px 0;
+            text-align: center; 
+        }
+
+        .timeline-grid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            background: linear-gradient(to bottom, var(--rosso-gold), var(--rosso-vino));
+        }
+
+        .time-item {
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .time-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .time-node {
+            width: 12px;
+            height: 12px;
+            background: var(--rosso-gold);
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 0 6px var(--rosso-dark); 
+            transition: var(--transition-smooth);
+        }
+
+        .time-item:hover .time-node {
+            transform: translateX(-50%) scale(1.3);
+            background: var(--rosso-vino);
+        }
+
+        .time-content {
+            padding-top: 35px; 
+        }
+
+        .time-content span {
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: var(--rosso-gold);
+        }
+
+        .time-content p {
+            color: var(--rosso-ivory);
+            font-weight: 300;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.9;
+        }
+
+        /* --- MENÚ EDITORIAL --- */
+        .menu-category {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 50px 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: var(--transition-smooth);
+        }
+
+        .menu-category:hover {
+            border-color: rgba(183, 137, 83, 0.6);
+        }
+
+        .menu-category h4 {
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            display: inline-block;
+            border-bottom: 1px solid var(--rosso-vino);
+            padding-bottom: 10px;
+            color: var(--rosso-gold);
+        }
+
+        .dish {
+            margin-bottom: 30px;
+        }
+
+        .dish:last-child {
+            margin-bottom: 0;
+        }
+
+        .dish span {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: var(--rosso-ivory);
+        }
+
+        .dish p {
+            font-weight: 300;
+            color: var(--rosso-ivory);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.85;
+        }
+
+        /* --- RECOMENDACIONES / DETALLES --- */
+        .recs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .rec-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 40px 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: var(--transition-smooth);
+        }
+
+        .rec-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--rosso-gold);
+        }
+
+        .rec-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--rosso-gold);
+        }
+
+        .rec-card p {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--rosso-ivory);
+            opacity: 0.9;
+        }
+
+        /* --- AUDIO & BOTÓN FLOTANTE --- */
+        #music-btn {
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            width: 60px; 
+            height: 60px;
+            border-radius: 50%; 
+            z-index: 5000; 
+            border: 1px solid var(--rosso-gold);
+            background: var(--rosso-dark); 
+            cursor: pointer;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.5rem;
+            transition: var(--transition-smooth); 
+            color: var(--rosso-gold);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        #music-btn:hover { 
+            background: var(--rosso-gold);
+            color: var(--rosso-dark);
+            transform: scale(1.1);
+        }
+
+        footer { 
+            padding: 80px 20px; 
+            text-align: center; 
+            border-top: 1px solid var(--glass-border); 
+            margin-top: 50px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 768px) {
+            .date-box { font-size: 2rem; gap: 20px; }
+            section { margin-bottom: 100px; }
+            .section-title { font-size: 2.2rem; margin-bottom: 40px; }
+            .location-info, .timeline-wrapper, .menu-category { padding: 40px 20px; }
+            header h1 { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FONDO CINEMÁTICO BASADO EN TU REFERENCIA -->
+    <div class="theatrical-bg">
+        <div class="ambient-glows"></div>
+    </div>
+    <div class="vignette-overlay"></div>
+    <div class="analog-grain"></div>
+
+    <!-- PÉTALOS FLOTANTES SUTILES -->
+    <div class="petals-container">
+        <div class="petal p1"></div>
+        <div class="petal p2"></div>
+        <div class="petal p3"></div>
+        <div class="petal p4"></div>
+    </div>
+
+    <audio id="gradAudio" loop preload="auto" playsinline autoplay>
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-btn" onclick="gestionarMusica()">🔇</button>
+
+    <div class="container">
+        
+        <header>
+            <div class="title-wrapper reveal-node">
+                <h1 class="reveal-node delay-1">MERCADOTECNIA</h1>
+                <p class="reveal-node delay-2">INVIERNO 2026</p>
+                <div class="decorative-line delay-3"></div>
+            </div>
+        </header>
+
+        <main>
+            <!-- FECHA Y UBICACIONES -->
+            <section class="info-section">
+                <div class="date-box reveal-node">
+                    <span>05</span> <span>12</span> <span>26</span>
+                </div>
+
+                <!-- APARTADO MISA (OCULTO HASTA CONFIRMACIÓN)
+                <div class="location-info reveal-node">
+                    <h3>MISA</h3>
+                    <p>El Ranchito<br>17:00 HRS</p>
+                    <a href="https://maps.app.goo.gl/XYLYxGZ2vmq3tSzD7" target="_blank" class="btn-rosso">Ver Ubicación</a>
+                </div>
+                -->
+
+                <div class="location-info reveal-node">
+                    <h3>RECEPCIÓN</h3>
+                    <p>Hacienda El Coecillo<br>Estado de México</p>
+                    <a href="https://maps.app.goo.gl/SRsryfGWXiWBjFKs5" target="_blank" class="btn-rosso">Ver Ubicación</a>
+                </div>
+            </section>
+
+            <!-- ITINERARIO OPERA ROSSO -->
+            <section class="timeline-section reveal-node">
+                <h2 class="section-title">Itinerario</h2>
+                <div class="timeline-wrapper">
+                    <div class="timeline-grid">
+                        <div class="time-item reveal-node delay-1">
+                            <div class="time-node"></div>
+                            <div class="time-content">
+                                <span>19:00 HRS</span>
+                                <p>Recepción</p>
+                            </div>
+                        </div>
+                        <div class="time-item reveal-node delay-2">
+                            <div class="time-node"></div>
+                            <div class="time-content">
+                                <span>20:00 HRS</span>
+                                <p>Cena</p>
+                            </div>
+                        </div>
+                        <div class="time-item reveal-node delay-1">
+                            <div class="time-node"></div>
+                            <div class="time-content">
+                                <span>21:10 HRS</span>
+                                <p>Brindis</p>
+                            </div>
+                        </div>
+                        <div class="time-item reveal-node delay-2">
+                            <div class="time-node"></div>
+                            <div class="time-content">
+                                <span>21:15 HRS</span>
+                                <p>Baile</p>
+                            </div>
+                        </div>
+                        <div class="time-item reveal-node delay-1">
+                            <div class="time-node"></div>
+                            <div class="time-content">
+                                <span>24:00 HRS</span>
+                                <p>Tornafiesta</p>
+                            </div>
+                        </div>
+                        <div class="time-item reveal-node delay-2">
+                            <div class="time-node"></div>
+                            <div class="time-content">
+                                <span>04:00 HRS</span>
+                                <p>Fin</p>
+                            </div>
+                        </div>
+                        <div class="time-item reveal-node delay-1">
+                            <div class="time-node"></div>
+                            <div class="time-content">
+                                <span>04:00 - 05:00 HRS</span>
+                                <p>Desalojo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MENÚ -->
+            <section class="menu-section reveal-node">
+                <h2 class="section-title">Menú</h2>
+
+                <div class="menu-category reveal-node delay-1">
+                    <h4>Menú Principal</h4>
+                    <div class="dish">
+                        <span>PRIMER TIEMPO</span>
+                        <p>Ensalada Santa Mónica</p>
+                    </div>
+                    <div class="dish">
+                        <span>SEGUNDO TIEMPO</span>
+                        <p>Pasta fussilli al chipotle</p>
+                    </div>
+                    <div class="dish">
+                        <span>PLATO FUERTE</span>
+                        <p>Pollo a la florentina</p>
+                    </div>
+                    <div class="dish">
+                        <span>GUARNICIONES</span>
+                        <p>Papa cambray con paprika y tocino<br>Verdura salteada en mantequilla</p>
+                    </div>
+                    <div class="dish">
+                        <span>POSTRE</span>
+                        <p>Pastel de Baileys</p>
+                    </div>
+                </div>
+
+                <div class="menu-category reveal-node delay-2">
+                    <h4>Menú Vegano y Vegetariano</h4>
+                    <div class="dish">
+                        <p>Lasagna de vegetales en salsa de pimiento rojo</p>
+                    </div>
+                </div>
+
+                <div class="menu-category reveal-node delay-1">
+                    <h4>Menú Infantil</h4>
+                    <div class="dish">
+                        <p>Macarrones con queso amarillo y crema<br>Papas a la francesa<br>Hamburguesa de pollo</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RECOMENDACIONES / DETALLES -->
+            <section class="recs-section reveal-node">
+                <h2 class="section-title">Detalles</h2>
+                <div class="recs-grid">
+                    <div class="rec-card reveal-node delay-1">
+                        <h4>CLIMA Y PROTECCIÓN</h4>
+                        <p>Le sugerimos encarecidamente tomar precauciones e ir abrigados ante el clima del lugar.</p>
+                    </div>
+                    <div class="rec-card reveal-node delay-2">
+                        <h4>VALET PARKING</h4>
+                        <p>Servicio externo a HC, con costo adicional por auto.</p>
+                    </div>
+                    <div class="rec-card reveal-node delay-3">
+                        <h4>MENÚS ESPECIALES</h4>
+                        <p>Si requiere menú vegano, vegetariano o por alergias, solicítelo directamente con el comité organizador en la selección de mesas.</p>
+                    </div>
+                    <div class="rec-card reveal-node delay-1">
+                        <h4>ACCESO ÚNICO</h4>
+                        <p>Considere que el recinto cuenta con un solo acceso habilitado para la entrada.</p>
+                    </div>
+                    <div class="rec-card reveal-node delay-2">
+                        <h4>ÁREAS DE FUMAR</h4>
+                        <p>Recordamos que el consumo de tabaco está restringido exclusivamente a las áreas exteriores.</p>
+                    </div>
+                    <div class="rec-card reveal-node delay-3">
+                        <h4>KIT Y GUARDARROPA</h4>
+                        <p>No hay servicio de guardarropa. El kit de graduado será entregado en la entrada.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="reveal-node">
+            <h2 class="accent-title" style="color: var(--rosso-gold);">MERCADOTECNIA INVIERNO</h2>
+            <p style="color: var(--rosso-ivory); letter-spacing: 4px; font-size: 0.9rem; font-family: 'Inter', sans-serif;">GRADUACIÓN 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        /* --- MOTOR DE ANIMACIÓN ON-SCROLL --- */
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-node').forEach(node => {
+                observer.observe(node);
+            });
+        });
+
+        /* --- CONTROL DE MÚSICA --- */
+        const audio = document.getElementById('gradAudio');
+        const btn = document.getElementById('music-btn');
+
+        function gestionarMusica() {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    btn.innerHTML = "🔊";
+                }).catch(error => {
+                    console.log("Interacción bloqueada por el navegador");
+                });
+            } else {
+                audio.pause();
+                btn.innerHTML = "🔇";
+            }
+        }
+
+        window.addEventListener('load', () => {
+            audio.play().then(() => {
+                btn.innerHTML = "🔊";
+            }).catch(() => {
+                console.log("Autoplay bloqueado. Esperando clic del usuario.");
+            });
+        });
+
+        ['click', 'touchstart'].forEach(evt => {
+            document.body.addEventListener(evt, () => {
+                if (audio.paused) {
+                    audio.play().then(() => {
+                        btn.innerHTML = "🔊";
+                    }).catch(err => console.log("Audio en espera..."));
+                }
+            }, { once: true });
+        });
+    </script>
+</body>
+</html>
