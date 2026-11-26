@@ -38,7 +38,7 @@
             background-color: var(--rosso-dark);
         }
 
-        /* --- FONDO GENERADO EN CODIGO (INSPIRADO EN image_156.png) --- */
+        /* --- FONDO GENERADO EN CODIGO --- */
         .theatrical-bg {
             position: fixed;
             inset: 0;
@@ -57,17 +57,11 @@
         .ambient-glows {
             position: absolute;
             inset: -20%;
-            /* Ráfagas de luz orgánica ultra-difuminadas */
             background: 
-                /* Ráfaga central-izquierda crimson */
                 radial-gradient(circle at 20% 55%, #6a040b 0%, rgba(67, 10, 10, 0.8) 30%, transparent 60%),
-                /* Mancha superior vino */
                 radial-gradient(circle at 45% 25%, #4a0205 0%, rgba(40, 3, 3, 0.9) 35%, transparent 70%),
-                /* Desborde inferior cálido */
                 radial-gradient(circle at 35% 85%, #560307 0%, rgba(55, 3, 5, 0.7) 40%, transparent 75%),
-                /* Destello secundario derecho muy sutil */
                 radial-gradient(circle at 85% 40%, #300102 0%, transparent 50%),
-                /* Relleno ambiental de penumbra roja */
                 radial-gradient(circle at 50% 50%, rgba(45, 2, 4, 0.4) 0%, transparent 80%);
             filter: blur(80px);
             opacity: 0.88;
@@ -83,7 +77,7 @@
             pointer-events: none;
         }
 
-        /* Grano analógico/ruido fotográfico de cámara idéntico a image_156.png */
+        /* Grano analógico/ruido fotográfico de cámara */
         .analog-grain {
             position: fixed;
             inset: 0;
@@ -498,7 +492,7 @@
 </head>
 <body>
 
-    <!-- FONDO CINEMÁTICO BASADO EN TU REFERENCIA -->
+    <!-- FONDO CINEMÁTICO -->
     <div class="theatrical-bg">
         <div class="ambient-glows"></div>
     </div>
@@ -514,7 +508,10 @@
     </div>
 
     <audio id="gradAudio" loop preload="auto" playsinline autoplay>
-        <source src="musica.mp3" type="audio/mpeg">
+        <source src="Safe and Sound.mp3" type="audio/mpeg">
+        <source src="safe and sound.mp3" type="audio/mpeg">
+        <source src="safe-and-sound.mp3" type="audio/mpeg">
+        <source src="Safe_and_Sound.mp3" type="audio/mpeg">
     </audio>
     <button id="music-btn" onclick="gestionarMusica()">🔇</button>
 
@@ -535,14 +532,14 @@
                     <span>05</span> <span>12</span> <span>26</span>
                 </div>
 
-                <!-- APARTADO MISA (OCULTO HASTA CONFIRMACIÓN)
+                <!-- APARTADO MISA -->
                 <div class="location-info reveal-node">
                     <h3>MISA</h3>
-                    <p>El Ranchito<br>17:00 HRS</p>
-                    <a href="https://maps.app.goo.gl/XYLYxGZ2vmq3tSzD7" target="_blank" class="btn-rosso">Ver Ubicación</a>
+                    <p>Divina Providencia<br>05 de Diciembre · 12:00 HRS</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Parroquia+de+la+Divina+Providencia+Toluca" target="_blank" class="btn-rosso">Ver Ubicación</a>
                 </div>
-                -->
 
+                <!-- APARTADO RECEPCIÓN -->
                 <div class="location-info reveal-node">
                     <h3>RECEPCIÓN</h3>
                     <p>Hacienda El Coecillo<br>Estado de México</p>
